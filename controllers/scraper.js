@@ -1,4 +1,5 @@
 const scraperService = require("../services/scraperService");
+
 module.exports = {
   getScrape: (req, res) => {
     scraperService
