@@ -10,9 +10,15 @@ class ScraperService {
       axios
         .get(url)
         .then(response => {
+          const params = req;
           const html = response.data;
           const $ = cheerio.load(html);
-          resolve(response);
+
+          const paragraph = $(".blog-content")
+            .last()
+            .text();
+
+          resolve(paragraph);
         })
         .catch(error => reject(error));
     }
