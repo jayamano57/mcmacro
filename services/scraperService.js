@@ -30,10 +30,12 @@ class ScraperService {
           return urls;
         })
         .then(urls => {
-          const promises = [];
+          let resultLength = 0;
           urls.forEach(fullUrl => {
-            const temp = new Promise((resolve, reject) => {
-              axios.get(fullUrl).then(response => {
+            return axios
+              .get(fullUrl)
+              .then(response => {
+                resultLength++;
                 const indexCollection = {};
                 const nutrHTML = response.data;
                 let $ = cheerio.load(nutrHTML);
@@ -41,9 +43,6 @@ class ScraperService {
                   .text()
                   .replace("Fast Food Macros", "")
                   .trim();
-                if (!result.hasOwnProperty(currentRestaurant)) {
-                  result[currentRestaurant] = [];
-                }
                 $(".foodTable tbody")
                   .children("tr")
                   .first()
@@ -75,95 +74,47 @@ class ScraperService {
                   .toArray();
                 itemTr.splice(0, 2);
 
-                //
-                for (let i = 0; i < itemTr.length; i++) {
+                itemTr.forEach(item => {
                   const calories = parseInt(
-                    $(itemTr[i]).children()[indexCollection.calories].firstChild
-                      .data
+                    $(item).children()[indexCollection.calories].firstChild.data
                   );
                   const protein = parseInt(
-                    $(itemTr[i]).children()[indexCollection.protein].firstChild
-                      .data
+                    $(item).children()[indexCollection.protein].firstChild.data
                   );
                   const fat = parseInt(
-                    $(itemTr[i]).children()[indexCollection.fat].firstChild.data
+                    $(item).children()[indexCollection.fat].firstChild.data
                   );
                   const carbs = parseInt(
-                    $(itemTr[i]).children()[indexCollection.carbs].firstChild
-                      .data
+                    $(item).children()[indexCollection.carbs].firstChild.data
                   );
 
                   if (
-                    // calories <= parseInt(req.calories) &&
-                    // carbs <= parseInt(req.carbs) &&
-                    // fat <= parseInt(req.fat) &&
-                    // protein <= parseInt(req.protein)
-                    calories <= parseInt(req.calories)
+                    calories <= parseInt(req.calories) &&
+                    carbs <= parseInt(req.carbs) &&
+                    fat <= parseInt(req.fat) &&
+                    protein <= parseInt(req.protein)
                   ) {
-                    result[currentRestaurant].push({
-                      Item: $(itemTr[i]).children()[indexCollection.item]
-                        .firstChild.firstChild.data,
-                      Calories: $(itemTr[i]).children()[
-                        indexCollection.calories
-                      ].firstChild.data,
-                      Carbs: $(itemTr[i]).children()[indexCollection.protein]
+                    const answer1 = {
+                      Item: $(item).children()[indexCollection.item].firstChild
                         .firstChild.data,
-                      Fat: $(itemTr[i]).children()[indexCollection.carbs]
-                        .firstChild.data
-                    });
+                      Calories: $(item).children()[indexCollection.calories]
+                        .firstChild.data,
+                      Carbs: $(item).children()[indexCollection.protein]
+                        .firstChild.data,
+                      Fat: $(item).children()[indexCollection.carbs].firstChild
+                        .data
+                    };
+                    if (!result.hasOwnProperty(currentRestaurant)) {
+                      result[currentRestaurant] = {};
+                    }
+                    result[currentRestaurant] = answer1;
                   }
-
-                  //return result
-                }
-                resolve(result);
-                //
-                // const answer = itemTr.map(item => {
-                //   const calories = parseInt(
-                //     $(item).children()[indexCollection.calories].firstChild.data
-                //   );
-                //   const protein = parseInt(
-                //     $(item).children()[indexCollection.protein].firstChild.data
-                //   );
-                //   const fat = parseInt(
-                //     $(item).children()[indexCollection.fat].firstChild.data
-                //   );
-                //   const carbs = parseInt(
-                //     $(item).children()[indexCollection.carbs].firstChild.data
-                //   );
-
-                //   if (
-                //     // calories <= parseInt(req.calories) &&
-                //     // carbs <= parseInt(req.carbs) &&
-                //     // fat <= parseInt(req.fat) &&
-                //     // protein <= parseInt(req.protein)
-                //     calories <= parseInt(req.calories)
-                //   ) {
-                //     result[currentRestaurant].push({
-                //       Item: $(item).children()[indexCollection.item].firstChild
-                //         .firstChild.data,
-                //       Calories: $(item).children()[indexCollection.calories]
-                //         .firstChild.data,
-                //       Carbs: $(item).children()[indexCollection.protein]
-                //         .firstChild.data,
-                //       Fat: $(item).children()[indexCollection.carbs].firstChild
-                //         .data
-                //     });
-                //   }
-                // });
-              });
-            });
-
-            promises.push(temp);
+                });
+                //result[currentRestaurant] = answer1;
+                resultLength === urls.length && resolve(result);
+              })
+              .catch(err => reject(err));
           });
-
-          //try to get this without using a promise
-          Promise.all(promises).then(result => {
-            console.log(result);
-            return result;
-          });
-        })
-        .then(result => {
-          console.log(result);
         })
         .catch(error => reject(error));
     }
