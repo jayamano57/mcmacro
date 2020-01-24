@@ -11,7 +11,6 @@ class ScraperService {
       axios
         .get(url)
         .then(response => {
-          const params = req;
           const html = response.data;
           let $ = cheerio.load(html);
 
@@ -105,12 +104,11 @@ class ScraperService {
                         .data
                     };
                     if (!result.hasOwnProperty(currentRestaurant)) {
-                      result[currentRestaurant] = {};
+                      result[currentRestaurant] = [];
                     }
-                    result[currentRestaurant] = answer1;
+                    result[currentRestaurant].push(answer1);
                   }
                 });
-                //result[currentRestaurant] = answer1;
                 resultLength === urls.length && resolve(result);
               })
               .catch(err => reject(err));
