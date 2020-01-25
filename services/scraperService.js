@@ -31,7 +31,7 @@ class ScraperService {
         .then(urls => {
           let resultLength = 0;
           urls.forEach(fullUrl => {
-            return axios
+            axios
               .get(fullUrl)
               .then(response => {
                 resultLength++;
