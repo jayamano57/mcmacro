@@ -32,7 +32,6 @@ class ScraperService {
           const promises = [];
           let resultLength = 0;
           urls.forEach(fullUrl => {
-            const result = {};
             promises.push(
               new Promise((resolve, reject) => {
                 axios
@@ -46,6 +45,9 @@ class ScraperService {
                       .text()
                       .replace("Fast Food Macros", "")
                       .trim();
+
+                    const result = {};
+                    result[currentRestaurant] = [];
                     $(".foodTable tbody")
                       .children("tr")
                       .first()
@@ -111,8 +113,6 @@ class ScraperService {
                           Fat: $(item).children()[indexCollection.carbs]
                             .firstChild.data
                         };
-
-                        result[currentRestaurant] = [];
 
                         result[currentRestaurant].push(answer);
                       }
