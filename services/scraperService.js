@@ -93,7 +93,7 @@ class ScraperService {
                     fat <= parseInt(req.fat) &&
                     protein <= parseInt(req.protein)
                   ) {
-                    const answer1 = {
+                    const answer = {
                       Item: $(item).children()[indexCollection.item].firstChild
                         .firstChild.data,
                       Calories: $(item).children()[indexCollection.calories]
@@ -106,12 +106,17 @@ class ScraperService {
                     if (!result.hasOwnProperty(currentRestaurant)) {
                       result[currentRestaurant] = [];
                     }
-                    result[currentRestaurant].push(answer1);
+                    result[currentRestaurant].push(answer);
                   }
                 });
                 resultLength === urls.length && resolve(result);
               })
-              .catch(err => reject(err));
+              .catch(() =>
+                reject({
+                  status: "error",
+                  message: "Something went wrong retrieving the data"
+                })
+              );
           });
         })
         .catch(error => reject(error));
