@@ -129,7 +129,7 @@ class ScraperService {
             );
           });
           const p = await Promise.all(promises);
-          console.log(p);
+          resolve(Object.assign(...p));
         })
         .catch(error => reject(error));
     }
