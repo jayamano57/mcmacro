@@ -37,7 +37,7 @@ class ScraperService {
                 axios
                   .get(fullUrl)
                   .then(response => {
-                    // resultLength++;
+                    resultLength++;
                     const indexCollection = {};
                     const nutrHTML = response.data;
                     let $ = cheerio.load(nutrHTML);
@@ -53,7 +53,7 @@ class ScraperService {
                       .first()
                       .children()
                       .each((i, label) => {
-                        resultLength++;
+                        //resultLength++;
                         const title = $(label).text();
                         switch (title) {
                           case "Item":
