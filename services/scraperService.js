@@ -7,41 +7,45 @@ class ScraperService {
     const result = {};
 
     return new Promise(scraperPromise);
+
     function scraperPromise(resolve, reject) {
       axios
         .get(url)
         .then(response => {
+          const urls = []; // array of urls of each restaurant
           const html = response.data;
           let $ = cheerio.load(html);
 
+          //list of restaurants from side nav dropdown
           const restaurantList = $(".pushy-submenu ul")
             .first()
             .children("li");
-
-          const urls = [];
-          restaurantList.each((i, restaurant) => {
+          restaurantList.each((index, restaurant) => {
             const fullUrl = `${url}${$(restaurant)
               .children("a")
               .attr("href")}`;
 
             urls.push(fullUrl);
           });
+
           return urls;
         })
         .then(urls => {
-          let resultLength = 0;
-          urls.forEach(fullUrl => {
+          let counter = 0;
+          // go through each url, and grab appropriate data according to parameters
+          urls.forEach(url => {
             return axios
-              .get(fullUrl)
+              .get(url)
               .then(response => {
-                resultLength++;
+                counter++;
                 const indexCollection = {};
-                const nutrHTML = response.data;
-                let $ = cheerio.load(nutrHTML);
+                const nutriHTML = response.data;
+                const $ = cheerio.load(nutriHTML);
                 const currentRestaurant = $("h1")
                   .text()
                   .replace("Fast Food Macros", "")
                   .trim();
+
                 $(".foodTable tbody")
                   .children("tr")
                   .first()
@@ -68,6 +72,7 @@ class ScraperService {
                         return;
                     }
                   });
+
                 const itemTr = $(".foodTable tbody")
                   .children("tr")
                   .toArray();
@@ -93,7 +98,7 @@ class ScraperService {
                     fat <= parseInt(req.fat) &&
                     protein <= parseInt(req.protein)
                   ) {
-                    const answer = {
+                    const validResult = {
                       Item: $(item).children()[indexCollection.item].firstChild
                         .firstChild.data,
                       Calories: $(item).children()[indexCollection.calories]
@@ -106,20 +111,22 @@ class ScraperService {
                     if (!result.hasOwnProperty(currentRestaurant)) {
                       result[currentRestaurant] = [];
                     }
-                    result[currentRestaurant].push(answer);
+                    result[currentRestaurant].push(validResult);
                   }
                 });
-                resultLength === urls.length && resolve(result);
+                counter === urls.length && resolve(result);
               })
-              .catch(() =>
+              .catch(() => {
                 reject({
                   status: "error",
-                  message: "Something went wrong retrieving the data"
-                })
-              );
+                  message: `There has been a problem retrieving data`
+                });
+              });
           });
         })
-        .catch(error => reject(error));
+        .catch(() =>
+          reject({ status: "error", message: "There has been a problem" })
+        );
     }
   }
 }
