@@ -1,6 +1,7 @@
 import React from "react";
 import MacroInputContainer from "./MacroInputContainer";
 import Chart from "./Chart";
+import axios from "axios";
 
 class Home extends React.Component {
   state = {
@@ -74,7 +75,10 @@ class Home extends React.Component {
   search = e => {
     e.preventDefault();
     const formData = { ...this.state.formData };
-    console.log(formData);
+    axios
+      .get("http://localhost:8080/api/scraper", { formData })
+      .then(response => console.log(response))
+      .catch(error => console.log(error));
   };
 
   render() {

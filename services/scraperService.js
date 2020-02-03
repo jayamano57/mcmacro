@@ -9,22 +9,21 @@ class ScraperService {
       axios
         .get(url)
         .then(response => {
-          const urls = []; // array of urls of each restaurant
           const html = response.data;
           let $ = cheerio.load(html);
 
-          //list of restaurants from side nav dropdown
           const restaurantList = $(".pushy-submenu ul")
             .first()
             .children("li");
-          restaurantList.each((index, restaurant) => {
+
+          const urls = [];
+          restaurantList.each((i, restaurant) => {
             const fullUrl = `${url}${$(restaurant)
               .children("a")
               .attr("href")}`;
 
             urls.push(fullUrl);
           });
-
           return urls;
         })
         .then(async urls => {
@@ -105,7 +104,7 @@ class ScraperService {
                     fat <= parseInt(req.fat) &&
                     protein <= parseInt(req.protein)
                   ) {
-                    const validResult = {
+                    const answer = {
                       Item: $(item).children()[indexCollection.item].firstChild
                         .firstChild.data,
                       Calories: $(item).children()[indexCollection.calories]
