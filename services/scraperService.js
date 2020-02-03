@@ -6,7 +6,7 @@ class ScraperService {
   getScraperService(req) {
     return new Promise(promiseExecutor);
     function promiseExecutor(resolve, reject) {
-      return axios
+      axios
         .get(url)
         .then(response => {
           const html = response.data;
@@ -57,7 +57,6 @@ class ScraperService {
                   .first()
                   .children()
                   .each((i, label) => {
-                    //resultLength++;
                     const title = $(label).text();
                     switch (title) {
                       case "Item":

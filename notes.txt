@@ -1,42 +1,4 @@
-Solutions 
-===================
-Logic 
-
-    1. load page
-    2. loop through links to load link urls
-    3. for each restaurant page, loop through items
-
-
-Solutions
-
-    1. keep everything as is, but return result of the loop function that creates the response obj, so that gets passed to original axios .then
-        - make initial axios call
-        - in that .then, loop through links
-        - for each link, load that html and loop through items
-    
-    2. the only resolve should be in the inner loop
-
-    3. the only promise is where the second axios call is
-
-    2. Promise.all
-        - when looping through each item per restaurant, after loop, resolve the result of the .filter, so it should resolve {restaurant: [{...}, {...}]}
-        - use a Promise.all the resolve an array like [{rest: [{...}]}, {rest2: [{...}]}]
-        - flatten that array to create one large obj, which will be your answer
-    
-    3. Async/Await
-        --------------------------
-        - await for your data when you make the axios call -> const data = await axios.get('url');
-        - once you have that data, return it so the next .then can use
-        - put the async in a try block and have a catch to handle error
-        - that next .then can use that data to do its logic, and add to global result object
-        --------------------------
-        - just set the result to await the grand answer
-        - getScrapeService: async function() {
-            const answerToReturn = await mainFunction()
-
-            const mainFunction = () => {
-                [all the logic, which you want to return the grand answer]
-            }
-
-        }
-        --------------------------
+1. Add react router dom
+2. Get fonts, icons
+3. get components from ant
+4. layout a rough draft of ui home page
