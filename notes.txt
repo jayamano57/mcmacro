@@ -1,4 +1,5 @@
-1. Add react router dom
-2. Get fonts, icons
-3. get components from ant
-4. layout a rough draft of ui home page
+greater than or less than animation
+
+1. animation by adding, removing classnames
+2. adding a @keyframe animation when less than or greater than added
+3. use csstransitiongroup
