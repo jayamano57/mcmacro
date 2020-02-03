@@ -75,9 +75,8 @@ class Home extends React.Component {
   search = e => {
     e.preventDefault();
     const formData = { ...this.state.formData };
-    debugger;
     axios
-      .get("http://localhost:8080/api/scraper", { formData })
+      .get("http://localhost:8080/api/scraper", { params: formData })
       .then(response => console.log(response))
       .catch(error => console.log(error));
   };

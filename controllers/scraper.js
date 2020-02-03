@@ -3,7 +3,7 @@ const scraperService = require("../services/scraperService");
 module.exports = {
   getScrape: (req, res) => {
     scraperService
-      .getScraperService(req.body)
+      .getScraperService(req.query)
       .then(response => {
         res.status(200).send(response);
       })
