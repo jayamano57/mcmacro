@@ -1,0 +1,168 @@
+body {
+  background-image: linear-gradient(
+    to right top,
+    $color-primary-dark,
+    $color-primary-light
+  );
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.home {
+  h1 .title {
+    border: 1px solid #cfddf8;
+    padding: 0rem 1rem;
+    color: #d1ddf8;
+  }
+  .content-container {
+    height: 80vh;
+    display: flex;
+
+    .macro-input-container {
+      padding: 4rem 0;
+      border-radius: 1rem;
+      box-shadow: 0 1.5rem 4rem $box-shadow-color;
+      flex: 0 0 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      background-color: #fdfdfdad;
+      position: relative;
+      &-input {
+        display: flex;
+        position: relative;
+        width: 75%;
+        height: 20%;
+        border-radius: 0.5rem;
+        justify-content: space-around;
+        align-items: center;
+
+        &.calories {
+          background-image: linear-gradient(to bottom, #e56767, #cc2c2d);
+        }
+
+        &.protein {
+          background-image: linear-gradient(to bottom, #69e567, #34d05d);
+        }
+
+        &.carbs {
+          background-image: linear-gradient(to bottom, #6777e5, #3541d1);
+        }
+
+        &.fat {
+          background-image: linear-gradient(to bottom, #ca63e4, #c43cd4);
+        }
+
+        .input-title {
+          margin: 0;
+          font-size: 4rem;
+          color: white;
+          padding-left: 3rem;
+          flex: 0 0 66%;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .unit {
+          color: white;
+          font-size: 2rem;
+        }
+
+        .input-group {
+          display: flex;
+          justify-content: flex-start;
+          margin-left: 4rem;
+          flex: 1;
+          .macro-input {
+            margin-right: 1rem;
+            width: 6rem;
+            border: none;
+            padding: 0 0.5rem;
+            font-size: 1.6rem;
+            background: none;
+            border-bottom: 2px solid white;
+            color: white;
+            transition: width 0.2s;
+
+            &:focus {
+              outline: none;
+            }
+
+            &:focus {
+              width: 7rem;
+            }
+          }
+        }
+
+        .icon {
+          height: 5.5rem;
+          width: 5.5rem;
+          display: flex;
+          background-color: white;
+          border-radius: 50%;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          left: -4.2rem;
+          box-sizing: content-box;
+          box-shadow: 0 1.5rem 4rem $box-shadow-color;
+
+          img {
+            height: 70%;
+            width: 70%;
+          }
+        }
+      }
+
+      .ant-select {
+        width: 120px;
+        position: absolute;
+        right: 100px;
+        top: 8px;
+
+        &-selection {
+          background-color: #cfddf8;
+          border-color: #7196eb;
+          &:focus,
+          &:active {
+            box-shadow: none;
+          }
+        }
+      }
+
+      .search {
+        background-color: #ff849f;
+        color: white;
+        position: absolute;
+        right: -3rem;
+        box-shadow: 0 0.1rem 0.5rem $box-shadow-color;
+        transition: all 0.2s;
+
+        &:hover {
+          cursor: pointer;
+          transform: translateY(-2px);
+          box-shadow: 0 0.4rem 1rem $box-shadow-color;
+        }
+
+        &:focus {
+          outline: none;
+        }
+
+        &:active {
+          outline: none;
+          transform: translateY(0);
+          box-shadow: 0 0.1rem 0.5rem $box-shadow-color;
+        }
+      }
+    }
+
+    .chart {
+      flex: 1;
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

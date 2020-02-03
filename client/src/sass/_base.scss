@@ -1,0 +1,24 @@
+// VARIABLES
+$color-primary: blue;
+$color-primary-light: #82a0e4;
+$color-primary-dark: #5284f5;
+$box-shadow-color: #00000075;
+
+// GLOBAL RESETS
+html {
+  box-sizing: border-box;
+  font-size: 62.5%; // We want 1rem = 10px ==> (10px / 16px = 62.5%)
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+body {
+  padding: 3rem;
+  font-family: "Hind Siliguri", sans-serif;
+}

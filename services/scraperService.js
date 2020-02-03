@@ -4,11 +4,8 @@ const url = "http://fastfoodmacros.com/";
 
 class ScraperService {
   getScraperService(req) {
-    const result = {};
-
-    return new Promise(scraperPromise);
-
-    function scraperPromise(resolve, reject) {
+    return new Promise(promiseExecutor);
+    function promiseExecutor(resolve, reject) {
       axios
         .get(url)
         .then(response => {
@@ -30,21 +27,31 @@ class ScraperService {
 
           return urls;
         })
-        .then(urls => {
-          let counter = 0;
-          // go through each url, and grab appropriate data according to parameters
+        .then(async urls => {
+          const promises = [];
           urls.forEach(url => {
-            return axios
-              .get(url)
-              .then(response => {
-                counter++;
+            promises.push(axios.get(url));
+          });
+
+          const allRestaurantData = await Promise.all(promises);
+          return allRestaurantData;
+        })
+        .then(async allData => {
+          const filteredPromises = [];
+          allData.forEach(response => {
+            filteredPromises.push(
+              new Promise((resolve, reject) => {
                 const indexCollection = {};
-                const nutriHTML = response.data;
-                const $ = cheerio.load(nutriHTML);
+                const nutrHTML = response.data;
+                let $ = cheerio.load(nutrHTML);
+
                 const currentRestaurant = $("h1")
                   .text()
                   .replace("Fast Food Macros", "")
                   .trim();
+
+                const result = {};
+                result[currentRestaurant] = [];
 
                 $(".foodTable tbody")
                   .children("tr")
@@ -108,25 +115,25 @@ class ScraperService {
                       Fat: $(item).children()[indexCollection.carbs].firstChild
                         .data
                     };
-                    if (!result.hasOwnProperty(currentRestaurant)) {
-                      result[currentRestaurant] = [];
-                    }
-                    result[currentRestaurant].push(validResult);
+
+                    result[currentRestaurant].push(answer);
                   }
                 });
-                counter === urls.length && resolve(result);
+                resolve(result);
               })
-              .catch(() => {
-                reject({
-                  status: "error",
-                  message: `There has been a problem retrieving data`
-                });
-              });
+            );
+          });
+          Promise.all(filteredPromises).then(response => {
+            const finalResult = response.filter(restaurant => {
+              const key = Object.keys(restaurant)[0];
+              return restaurant[key].length > 0;
+            });
+            resolve(Object.assign(...finalResult));
           });
         })
-        .catch(() =>
-          reject({ status: "error", message: "There has been a problem" })
-        );
+        .catch(() => {
+          reject({ status: "error", message: "Something went wrong" });
+        });
     }
   }
 }
