@@ -1,14 +1,15 @@
 import React from "react";
 import "./sass/main.scss";
 import Home from "./components/home/Home";
+import Results from "./components/results/Results";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <Home />
-      </header>
-    </div>
+    <Router>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/results" component={Results} />
+    </Router>
   );
 }
 

@@ -62,6 +62,16 @@ body {
           flex: 0 0 66%;
           display: flex;
           justify-content: space-between;
+          span {
+            transition: all 0.25s;
+            &.less {
+              transform: rotateY(0deg);
+            }
+
+            &.greater {
+              transform: rotateY(180deg);
+            }
+          }
         }
 
         .unit {
@@ -164,5 +174,15 @@ body {
       justify-content: center;
       align-items: center;
     }
+  }
+}
+
+@keyframes operatorFlip {
+  0% {
+    transform: rotate(-180deg);
+  }
+
+  100% {
+    transform: rotate(-180deg);
   }
 }

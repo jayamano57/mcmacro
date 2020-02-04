@@ -8,8 +8,8 @@ function MacroInput(props) {
       </div>
       <h2 className="input-title">
         {props.type}
-        <span className={`operator ${props.operator}`}>
-          {props.operator === "less" ? <span>&lt;</span> : <span>&gt;</span>}
+        <span className={props.operator === "less" ? "less" : "greater"}>
+          <span>&lt;</span>
         </span>
       </h2>
       <div className="input-group">

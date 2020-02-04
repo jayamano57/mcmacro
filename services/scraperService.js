@@ -49,8 +49,7 @@ class ScraperService {
                   .replace("Fast Food Macros", "")
                   .trim();
 
-                const result = {};
-                result[currentRestaurant] = [];
+                const result = { title: currentRestaurant, items: [] };
 
                 $(".foodTable tbody")
                   .children("tr")
@@ -114,8 +113,7 @@ class ScraperService {
                       Fat: $(item).children()[indexCollection.carbs].firstChild
                         .data
                     };
-
-                    result[currentRestaurant].push(answer);
+                    result.items.push(answer);
                   }
                 });
                 resolve(result);
@@ -123,11 +121,15 @@ class ScraperService {
             );
           });
           Promise.all(filteredPromises).then(response => {
-            const finalResult = response.filter(restaurant => {
-              const key = Object.keys(restaurant)[0];
-              return restaurant[key].length > 0;
+            const filteredResponse = response.filter(restaurant => {
+              return restaurant.items.length > 0;
             });
-            resolve(Object.assign(...finalResult));
+            const finalResult = {
+              status: "success",
+              length: response.length,
+              data: filteredResponse
+            };
+            resolve(finalResult);
           });
         })
         .catch(() => {
