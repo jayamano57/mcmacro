@@ -1,5 +1,12 @@
-greater than or less than animation
+what's left
 
-1. animation by adding, removing classnames
-2. adding a @keyframe animation when less than or greater than added
-3. use csstransitiongroup
+1. error check (network)
+2. no items case
+3. greater than or less than
+4. validation
+5. button disable
+6. animate entrance of results
+7. accessibility
+8. browser compatibility
+9. responsive
+10. refactor
