@@ -3,6 +3,7 @@ what's left
 1. error check (network)
 2. no items case
 3. greater than or less than
+4. key in maps
 4. validation
 5. button disable
 6. animate entrance of results
