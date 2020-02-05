@@ -1,10 +1,13 @@
 import React from "react";
 import axios from "axios";
 import RestaurantData from "./RestaurantData";
+import loading from "../../media/gifs/loading-200px.svg";
 
 class Results extends React.Component {
   state = {
-    data: {}
+    data: {},
+    resturantDataComponents: [],
+    loading: true
   };
 
   componentDidMount() {
@@ -18,9 +21,11 @@ class Results extends React.Component {
       })
       .then(response => {
         const resturantDataComponents = this.createRestaurantDataComponents(
-          response.data
+          response.data.data
         );
         this.setState({
+          loading: false,
+          resturantDataComponents,
           data: response.data
         });
       })
@@ -28,17 +33,28 @@ class Results extends React.Component {
   };
 
   createRestaurantDataComponents = data => {
-    debugger;
-    data.map(restaurant => {
-      return <RestaurantData />;
+    return data.map(restaurant => {
+      return (
+        <RestaurantData title={restaurant.title} items={restaurant.items} />
+      );
     });
   };
 
   render() {
     return (
-      <div className="results-container">
-        <section className="results-content">results</section>
-      </div>
+      <React.Fragment>
+        {this.state.loading ? (
+          <div className="loading">
+            <img src={loading} alt="loading" />
+          </div>
+        ) : (
+          <div className="results-container">
+            <section className="results-content">
+              {this.state.resturantDataComponents}
+            </section>
+          </div>
+        )}
+      </React.Fragment>
     );
   }
 }

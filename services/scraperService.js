@@ -104,13 +104,15 @@ class ScraperService {
                     protein <= parseInt(req.protein)
                   ) {
                     const answer = {
-                      Item: $(item).children()[indexCollection.item].firstChild
+                      item: $(item).children()[indexCollection.item].firstChild
                         .firstChild.data,
-                      Calories: $(item).children()[indexCollection.calories]
+                      calories: $(item).children()[indexCollection.calories]
                         .firstChild.data,
-                      Carbs: $(item).children()[indexCollection.protein]
+                      protein: $(item).children()[indexCollection.protein]
                         .firstChild.data,
-                      Fat: $(item).children()[indexCollection.carbs].firstChild
+                      carbs: $(item).children()[indexCollection.carbs]
+                        .firstChild.data,
+                      fat: $(item).children()[indexCollection.fat].firstChild
                         .data
                     };
                     result.items.push(answer);
