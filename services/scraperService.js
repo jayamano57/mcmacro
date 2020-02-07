@@ -96,26 +96,48 @@ class ScraperService {
                   const carbs = parseInt(
                     $(item).children()[indexCollection.carbs].firstChild.data
                   );
-
-                  if (
-                    calories <= parseInt(req.calories) &&
-                    carbs <= parseInt(req.carbs) &&
-                    fat <= parseInt(req.fat) &&
-                    protein <= parseInt(req.protein)
-                  ) {
-                    const answer = {
-                      item: $(item).children()[indexCollection.item].firstChild
-                        .firstChild.data,
-                      calories: $(item).children()[indexCollection.calories]
-                        .firstChild.data,
-                      protein: $(item).children()[indexCollection.protein]
-                        .firstChild.data,
-                      carbs: $(item).children()[indexCollection.carbs]
-                        .firstChild.data,
-                      fat: $(item).children()[indexCollection.fat].firstChild
-                        .data
-                    };
-                    result.items.push(answer);
+                  if (req.operator === "greater") {
+                    if (
+                      calories >= parseInt(req.calories) &&
+                      carbs >= parseInt(req.carbs) &&
+                      fat >= parseInt(req.fat) &&
+                      protein >= parseInt(req.protein)
+                    ) {
+                      const answer = {
+                        item: $(item).children()[indexCollection.item]
+                          .firstChild.firstChild.data,
+                        calories: $(item).children()[indexCollection.calories]
+                          .firstChild.data,
+                        protein: $(item).children()[indexCollection.protein]
+                          .firstChild.data,
+                        carbs: $(item).children()[indexCollection.carbs]
+                          .firstChild.data,
+                        fat: $(item).children()[indexCollection.fat].firstChild
+                          .data
+                      };
+                      result.items.push(answer);
+                    }
+                  } else if (req.operator === "less") {
+                    if (
+                      calories <= parseInt(req.calories) &&
+                      carbs <= parseInt(req.carbs) &&
+                      fat <= parseInt(req.fat) &&
+                      protein <= parseInt(req.protein)
+                    ) {
+                      const answer = {
+                        item: $(item).children()[indexCollection.item]
+                          .firstChild.firstChild.data,
+                        calories: $(item).children()[indexCollection.calories]
+                          .firstChild.data,
+                        protein: $(item).children()[indexCollection.protein]
+                          .firstChild.data,
+                        carbs: $(item).children()[indexCollection.carbs]
+                          .firstChild.data,
+                        fat: $(item).children()[indexCollection.fat].firstChild
+                          .data
+                      };
+                      result.items.push(answer);
+                    }
                   }
                 });
                 resolve(result);
@@ -128,7 +150,7 @@ class ScraperService {
             });
             const finalResult = {
               status: "success",
-              length: response.length,
+              length: filteredResponse.length,
               data: filteredResponse
             };
             resolve(finalResult);

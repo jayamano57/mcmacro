@@ -6,8 +6,8 @@ function Chart(props) {
     <div className="chart">
       <Pie
         data={props.data}
-        // width={0}
-        // height={0}
+        // width={100}
+        // height={100}
         options={{ maintainAspectRatio: false }}
       />
     </div>

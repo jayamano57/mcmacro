@@ -28,6 +28,7 @@ function MacroInputContainer(props) {
         blurHandler={props.blurHandler}
         value={props.value.calories}
         operator={props.operator}
+        isValid={props.errors.calories}
       />
       <MacroInput
         class="protein"
@@ -39,6 +40,7 @@ function MacroInputContainer(props) {
         blurHandler={props.blurHandler}
         value={props.value.protein}
         operator={props.operator}
+        isValid={props.errors.protein}
       />
       <MacroInput
         class="carbs"
@@ -50,6 +52,7 @@ function MacroInputContainer(props) {
         blurHandler={props.blurHandler}
         value={props.value.carbs}
         operator={props.operator}
+        isValid={props.errors.carbs}
       />
       <MacroInput
         class="fat"
@@ -61,8 +64,11 @@ function MacroInputContainer(props) {
         blurHandler={props.blurHandler}
         value={props.value.fat}
         operator={props.operator}
+        isValid={props.errors.fat}
       />
-
+      {Object.values(props.errors).some(result => !result) && (
+        <div className="validation-error-msg">Please complete all fields</div>
+      )}
       <button
         className="btn-default search"
         type="submit"

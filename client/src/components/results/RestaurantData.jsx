@@ -9,13 +9,14 @@ function RestaurantData(props) {
       <Panel header={props.title} key="1">
         <div className="restaurant-content">
           <ul>
-            {props.items.map(item => {
+            {props.items.map((item, index) => {
               return (
                 <RestaurantListItem
                   item={item.item}
                   calories={item.calories}
                   carbs={item.carbs}
                   protein={item.protein}
+                  key={index}
                   fat={item.fat}
                 />
               );

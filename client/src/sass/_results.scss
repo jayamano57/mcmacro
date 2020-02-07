@@ -18,14 +18,50 @@ body {
     border-radius: 3px;
     padding: 5rem 7rem;
     box-shadow: 0 0.5rem 2rem $box-shadow-color;
+    position: relative;
+    .no-results {
+      text-align: center;
+      font-size: 4rem;
+      .sad-face {
+        display: inline-block;
+        animation: rotate90 0.75s ease-out;
+        animation-fill-mode: forwards;
+        margin-left: 1.5rem;
+      }
+    }
+    .back-btn {
+      background-color: transparent;
+      border-bottom: none;
+      border-width: 0;
+      color: #425684;
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      padding: 3px;
+      border: none;
+      transition: color 0.25s;
+      &:hover,
+      &:focus {
+        cursor: pointer;
+        color: #34415f;
+        animation: swayLeftRight 0.75s forwards infinite;
+      }
+      &:focus {
+        outline: 2px solid #fbff00;
+      }
+    }
     .ant-collapse {
       border-radius: 0;
-      background-color: #b8cdff;
+      background-color: transparent;
       .ant-collapse-item {
         border-bottom: 1px solid #789ae7;
         .ant-collapse-header {
           font-size: 2rem;
           padding: 1.6rem 0 1.6rem 4rem;
+          transition: none;
+          &:focus {
+            outline: 2px solid #fbff00;
+          }
         }
       }
       .restaurant-content {
@@ -58,5 +94,26 @@ body {
         }
       }
     }
+  }
+}
+
+@keyframes swayLeftRight {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes rotate90 {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(90deg);
   }
 }

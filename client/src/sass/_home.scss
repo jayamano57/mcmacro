@@ -17,7 +17,6 @@ body {
   .content-container {
     height: 80vh;
     display: flex;
-
     .macro-input-container {
       padding: 4rem 0;
       border-radius: 1rem;
@@ -37,6 +36,26 @@ body {
         border-radius: 0.5rem;
         justify-content: space-around;
         align-items: center;
+        position: relative;
+        &::after {
+          content: "";
+          display: inline-block;
+          height: 75%;
+          width: 0.3rem;
+          background-color: #de1313;
+          position: absolute;
+          right: -15px;
+          opacity: 0;
+          transform: translateY(-2rem);
+          transition: all 0.5s;
+        }
+        &.invalid {
+          animation: shake 0.15s;
+          &::after {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
 
         &.calories {
           background-image: linear-gradient(to bottom, #e56767, #cc2c2d);
@@ -94,12 +113,8 @@ body {
             border-bottom: 2px solid white;
             color: white;
             transition: width 0.2s;
-
             &:focus {
               outline: none;
-            }
-
-            &:focus {
               width: 7rem;
             }
           }
@@ -117,12 +132,22 @@ body {
           left: -4.2rem;
           box-sizing: content-box;
           box-shadow: 0 1.5rem 4rem $box-shadow-color;
-
           img {
             height: 70%;
             width: 70%;
           }
         }
+      }
+
+      .validation-error-msg {
+        border: 2px solid #de1313;
+        padding: 0.3rem 3.2rem;
+        background-color: #eff4ff;
+        color: #de1313;
+        position: absolute;
+        top: -4rem;
+        right: 3rem;
+        animation: fadeInRight 0.5s;
       }
 
       .ant-select {
@@ -134,9 +159,11 @@ body {
         &-selection {
           background-color: #cfddf8;
           border-color: #7196eb;
+          transition: none; //override
           &:focus,
           &:active {
-            box-shadow: none;
+            box-shadow: 0 0 0 2px #fbff00;
+            border-color: transparent;
           }
         }
       }
@@ -147,9 +174,9 @@ body {
         position: absolute;
         right: -3rem;
         box-shadow: 0 0.1rem 0.5rem $box-shadow-color;
-        transition: all 0.2s;
-
-        &:hover {
+        transition: transform 0.2s;
+        &:hover,
+        &:focus {
           cursor: pointer;
           transform: translateY(-2px);
           box-shadow: 0 0.4rem 1rem $box-shadow-color;
@@ -157,6 +184,7 @@ body {
 
         &:focus {
           outline: none;
+          border: 2px solid #fbff00;
         }
 
         &:active {
@@ -168,7 +196,7 @@ body {
     }
 
     .chart {
-      flex: 1;
+      width: 50%;
       flex-direction: column;
       display: flex;
       justify-content: center;
@@ -184,5 +212,28 @@ body {
 
   100% {
     transform: rotate(-180deg);
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(-2rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
   }
 }

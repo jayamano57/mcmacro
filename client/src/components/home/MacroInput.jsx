@@ -2,7 +2,11 @@ import React from "react";
 
 function MacroInput(props) {
   return (
-    <div className={`macro-input-container-input ${props.class}`}>
+    <div
+      className={`macro-input-container-input ${props.class} ${
+        props.isValid ? "" : "invalid"
+      }`}
+    >
       <div className="icon">
         <img src={props.icon} alt={props.alt} />
       </div>

@@ -11,10 +11,12 @@ class Results extends React.Component {
   };
 
   componentDidMount() {
-    this.getData(this.props.history.location.state.formData);
+    this.getData(this.props.history.location.state);
   }
 
-  getData = formData => {
+  getData = state => {
+    const formData = state.formData;
+    formData.operator = state.operator;
     axios
       .get("http://localhost:8080/api/scraper", {
         params: formData
@@ -29,15 +31,27 @@ class Results extends React.Component {
           data: response.data
         });
       })
-      .catch(error => console.log("error" + error));
+      .catch(error => {
+        this.setState({
+          loading: false
+        });
+      });
   };
 
   createRestaurantDataComponents = data => {
-    return data.map(restaurant => {
+    return data.map((restaurant, index) => {
       return (
-        <RestaurantData title={restaurant.title} items={restaurant.items} />
+        <RestaurantData
+          title={restaurant.title}
+          items={restaurant.items}
+          key={index}
+        />
       );
     });
+  };
+
+  backHome = () => {
+    this.props.history.push("/");
   };
 
   render() {
@@ -50,7 +64,16 @@ class Results extends React.Component {
         ) : (
           <div className="results-container">
             <section className="results-content">
-              {this.state.resturantDataComponents}
+              <button className="back-btn" onClick={this.backHome}>
+                &larr; Back to home
+              </button>
+              {this.state.data.length ? (
+                this.state.resturantDataComponents
+              ) : (
+                <div className="no-results">
+                  No results <span className="sad-face">:(</span>
+                </div>
+              )}
             </section>
           </div>
         )}

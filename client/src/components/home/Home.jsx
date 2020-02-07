@@ -20,6 +20,12 @@ class Home extends React.Component {
           hoverBackgroundColor: ["#52dc63", "#4957d9", "#c74ddb"]
         }
       ]
+    },
+    errors: {
+      calories: true,
+      protein: true,
+      carbs: true,
+      fat: true
     }
   };
 
@@ -66,18 +72,38 @@ class Home extends React.Component {
 
   selectChangeHandle = e => {
     const value = e;
+    const operator = value;
     this.setState({
-      operator: value
+      operator
     });
   };
 
-  search = e => {
+  search = async e => {
     e.preventDefault();
-    const formData = { ...this.state.formData };
-    this.props.history.push({
-      pathname: "/results",
-      state: { formData }
+    const errors = await this.formValidationCheck();
+    const isValid = Object.values(errors).every(value => {
+      return !!value;
     });
+    if (isValid) {
+      const formData = { ...this.state.formData };
+      this.props.history.push({
+        pathname: "/results",
+        state: { formData, operator: this.state.operator }
+      });
+    } else {
+      this.setState({
+        errors
+      });
+    }
+  };
+
+  formValidationCheck = () => {
+    const formData = { ...this.state.formData };
+    let errors = { ...this.state.errors };
+    const { calories, protein, carbs, fat } = formData;
+    errors = { calories, protein, carbs, fat };
+
+    return errors;
   };
 
   render() {
@@ -94,6 +120,7 @@ class Home extends React.Component {
             operator={this.state.operator}
             selectChangeHandle={this.selectChangeHandle}
             search={this.search}
+            errors={this.state.errors}
           />
           <Chart data={this.state.chartData} />
         </main>
