@@ -11,12 +11,21 @@ body {
 .home {
   h1 .title {
     border: 1px solid #cfddf8;
-    padding: 0rem 1rem;
+    padding: 0.5rem 1rem;
     color: #d1ddf8;
   }
   .content-container {
     height: 80vh;
     display: flex;
+    @include responsive(56.25em) {
+      flex-direction: column;
+      align-items: center;
+      width: 75%;
+      margin: auto;
+    }
+    @include responsive(37.5em) {
+      width: 100%;
+    }
     .macro-input-container {
       padding: 4rem 0;
       border-radius: 1rem;
@@ -28,7 +37,16 @@ body {
       align-items: center;
       background-color: #fdfdfdad;
       position: relative;
+      @include responsive(56.25em) {
+        width: 100%;
+        height: 50rem;
+        margin: 2.5rem 0;
+      }
+      @include responsive(37.5em) {
+        margin: 2.5rem 0 4.5rem 0;
+      }
       &-input {
+        padding: 0 3rem;
         display: flex;
         position: relative;
         width: 75%;
@@ -37,6 +55,15 @@ body {
         justify-content: space-around;
         align-items: center;
         position: relative;
+        @include responsive(75em) {
+          padding: 0 4rem;
+        }
+        @include responsive(37.5em) {
+          padding: 0 5rem;
+        }
+        @include responsive(25em) {
+          padding: 0 4.5rem;
+        }
         &::after {
           content: "";
           display: inline-block;
@@ -75,12 +102,24 @@ body {
 
         .input-title {
           margin: 0;
+          font-weight: 300;
           font-size: 4rem;
           color: white;
-          padding-left: 3rem;
           flex: 0 0 66%;
           display: flex;
           justify-content: space-between;
+          @include responsive(75em) {
+            font-size: 3rem;
+          }
+          @include responsive(56.25em) {
+            font-size: 2.4rem;
+          }
+          @include responsive(37.5em) {
+            font-size: 2rem;
+          }
+          @include responsive(25em) {
+            font-size: 1.5rem;
+          }
           span {
             transition: all 0.25s;
             &.less {
@@ -96,13 +135,24 @@ body {
         .unit {
           color: white;
           font-size: 2rem;
+          @include responsive(56.25em) {
+            font-size: 1.7rem;
+          }
+          @include responsive(25em) {
+            font-size: 1.4rem;
+          }
         }
 
         .input-group {
           display: flex;
           justify-content: flex-start;
+          align-items: flex-end;
           margin-left: 4rem;
           flex: 1;
+          font-weight: 300;
+          @include responsive(25em) {
+            margin-left: 2rem;
+          }
           .macro-input {
             margin-right: 1rem;
             width: 6rem;
@@ -110,12 +160,24 @@ body {
             padding: 0 0.5rem;
             font-size: 1.6rem;
             background: none;
-            border-bottom: 2px solid white;
+            border-bottom: 1px solid white;
             color: white;
             transition: width 0.2s;
+            @include responsive(56.25em) {
+              width: 5rem;
+            }
+            @include responsive(25em) {
+              width: 4rem;
+            }
             &:focus {
               outline: none;
               width: 7rem;
+              @include responsive(56.25em) {
+                width: 6rem;
+              }
+              @include responsive(25em) {
+                width: 5rem;
+              }
             }
           }
         }
@@ -132,6 +194,16 @@ body {
           left: -4.2rem;
           box-sizing: content-box;
           box-shadow: 0 1.5rem 4rem $box-shadow-color;
+          @include responsive(75em) {
+            height: 4.5rem;
+            width: 4.5rem;
+            left: -3.5rem;
+          }
+          @include responsive(25em) {
+            height: 4rem;
+            width: 4rem;
+            left: -3rem;
+          }
           img {
             height: 70%;
             width: 70%;
@@ -175,11 +247,19 @@ body {
         right: -3rem;
         box-shadow: 0 0.1rem 0.5rem $box-shadow-color;
         transition: transform 0.2s;
+        @include responsive(37.5em) {
+          bottom: -25px;
+          right: 50%;
+          transform: translateX(50%);
+        }
         &:hover,
         &:focus {
           cursor: pointer;
           transform: translateY(-2px);
           box-shadow: 0 0.4rem 1rem $box-shadow-color;
+          @include responsive(37.5em) {
+            transform: translateX(50%);
+          }
         }
 
         &:focus {
@@ -191,16 +271,32 @@ body {
           outline: none;
           transform: translateY(0);
           box-shadow: 0 0.1rem 0.5rem $box-shadow-color;
+          @include responsive(37.5em) {
+            transform: translateX(50%);
+          }
         }
       }
     }
 
     .chart {
+      margin-left: 2rem;
       width: 50%;
       flex-direction: column;
       display: flex;
       justify-content: center;
       align-items: center;
+      @include responsive(56.25em) {
+        width: 100%;
+      }
+      canvas {
+        height: 100% !important;
+        @include responsive(75em) {
+        }
+        @include responsive(56.25em) {
+          margin-left: 0;
+          width: 100%;
+        }
+      }
     }
   }
 }

@@ -13,12 +13,21 @@ body {
 
 .results-container {
   padding: 2rem 10rem;
+  @include responsive(56.25em) {
+    padding: 0;
+  }
   .results-content {
     background-color: #b8cdff;
     border-radius: 3px;
     padding: 5rem 7rem;
     box-shadow: 0 0.5rem 2rem $box-shadow-color;
     position: relative;
+    @include responsive(37.5em) {
+      padding: 5rem 2rem;
+    }
+    @include responsive(25em) {
+      padding: 4rem 2rem;
+    }
     .no-results {
       text-align: center;
       font-size: 4rem;
@@ -40,6 +49,9 @@ body {
       padding: 3px;
       border: none;
       transition: color 0.25s;
+      @include responsive(25em) {
+        font-size: 1rem;
+      }
       &:hover,
       &:focus {
         cursor: pointer;
@@ -57,38 +69,92 @@ body {
         border-bottom: 1px solid #789ae7;
         .ant-collapse-header {
           font-size: 2rem;
-          padding: 1.6rem 0 1.6rem 4rem;
+          padding: 1.6rem 0 1.6rem 3rem;
           transition: none;
+          @include responsive(37.5em) {
+            font-size: 1.5rem;
+          }
+          @include responsive(25em) {
+            padding: 0.7rem 0 0.7rem 2.4rem;
+          }
           &:focus {
             outline: 2px solid #fbff00;
           }
         }
+        .ant-collapse-content {
+          &-box {
+            @include responsive(64em) {
+              padding-bottom: 0;
+              padding-top: 0;
+            }
+          }
+        }
       }
       .restaurant-content {
+        ul {
+          @include responsive(25em) {
+            margin-bottom: 0.7rem;
+          }
+        }
         .restaurant-item-list {
           list-style: none;
           display: flex;
           align-items: center;
           padding-left: 5rem;
           padding-right: 5rem;
+          @include responsive(64em) {
+            padding-left: 3rem;
+            padding-right: 3rem;
+          }
+          @include responsive(37.5em) {
+            padding-left: 2.5rem;
+            padding-right: 2.5rem;
+          }
+          @include responsive(25em) {
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+          }
           &:not(:first-child) {
             padding-top: 1.4rem;
+            @include responsive(64em) {
+              padding-top: 1rem;
+            }
+            @include responsive(25em) {
+              padding-top: 0.5rem;
+            }
           }
           &:not(:last-child) {
             border-bottom: 1px solid #98b3f3;
-            padding-bottom: 14px;
+            padding-bottom: 1.4rem;
+            @include responsive(64em) {
+              padding-bottom: 1rem;
+            }
+            @include responsive(25em) {
+              padding-bottom: 0.5rem;
+            }
           }
           & > div:first-child {
-            margin-right: 1rem;
             width: 50%;
             font-size: 1.6rem;
+            @include responsive(37.5em) {
+              font-size: 1.2rem;
+              width: 40%;
+            }
+            @include responsive(25em) {
+              font-size: 0.8rem;
+              width: 30%;
+            }
           }
           .item-macros {
             display: flex;
             flex: 1;
+            text-align: center;
             justify-content: space-between;
-            & > div:not(:last-child) {
-              text-align: center;
+            @include responsive(37.5em) {
+              font-size: 1.2rem;
+            }
+            @include responsive(25em) {
+              font-size: 0.8rem;
             }
           }
         }
