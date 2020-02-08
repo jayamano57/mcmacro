@@ -71,7 +71,7 @@ body {
           width: 0.3rem;
           background-color: #de1313;
           position: absolute;
-          right: -15px;
+          right: -1.5rem;
           opacity: 0;
           transform: translateY(-2rem);
           transition: all 0.5s;
@@ -223,10 +223,10 @@ body {
       }
 
       .ant-select {
-        width: 120px;
+        width: 12rem;
         position: absolute;
-        right: 100px;
-        top: 8px;
+        right: 10rem;
+        top: .8rem;
 
         &-selection {
           background-color: #cfddf8;
@@ -255,7 +255,7 @@ body {
         &:hover,
         &:focus {
           cursor: pointer;
-          transform: translateY(-2px);
+          transform: translateY(-.2rem);
           box-shadow: 0 0.4rem 1rem $box-shadow-color;
           @include responsive(37.5em) {
             transform: translateX(50%);
@@ -313,10 +313,10 @@ body {
 
 @keyframes shake {
   0% {
-    transform: translateX(-10px);
+    transform: translateX(-1rem);
   }
   75% {
-    transform: translateX(10px);
+    transform: translateX(1rem);
   }
   100% {
     transform: translateX(0px);

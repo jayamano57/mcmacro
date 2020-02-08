@@ -12,3 +12,10 @@ what's left
     - breakpoints
         - 1240px
 10. refactor
+
+
+RESPONSIVE =====
+1. content over device, but for this one, maybe choose device
+2. go little by little
+3. create mixin
+4. use em
