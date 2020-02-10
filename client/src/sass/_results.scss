@@ -42,7 +42,7 @@ body {
       background-color: transparent;
       border-bottom: none;
       border-width: 0;
-      color: #425684;
+      color: $back-btn;
       position: absolute;
       top: 15px;
       left: 20px;
@@ -59,14 +59,14 @@ body {
         animation: swayLeftRight 0.75s forwards infinite;
       }
       &:focus {
-        outline: 2px solid #fbff00;
+        outline: 2px solid $focus-outline;
       }
     }
     .ant-collapse {
       border-radius: 0;
       background-color: transparent;
       .ant-collapse-item {
-        border-bottom: 1px solid #789ae7;
+        border-bottom: 1px solid $color-primary;
         .ant-collapse-header {
           font-size: 2rem;
           padding: 1.6rem 0 1.6rem 3rem;
@@ -78,7 +78,7 @@ body {
             padding: 0.7rem 0 0.7rem 2.4rem;
           }
           &:focus {
-            outline: 2px solid #fbff00;
+            outline: 2px solid $focus-outline;
           }
         }
         .ant-collapse-content {
@@ -124,7 +124,7 @@ body {
             }
           }
           &:not(:last-child) {
-            border-bottom: 1px solid #98b3f3;
+            border-bottom: 1px solid $color-primary-light;
             padding-bottom: 1.4rem;
             @include responsive(64em) {
               padding-bottom: 1rem;

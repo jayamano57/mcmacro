@@ -12,7 +12,7 @@ function MacroInput(props) {
       </div>
       <h2 className="input-title">
         {props.type}
-        <span className={props.operator === "less" ? "less" : "greater"}>
+        <span className={props.operator}>
           <span>&lt;</span>
         </span>
       </h2>

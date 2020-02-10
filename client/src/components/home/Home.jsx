@@ -38,6 +38,7 @@ class Home extends React.Component {
     });
   };
 
+  // sets up the options and data for chart.js
   blurHandler = e => {
     const value = parseInt(e.currentTarget.value);
     const data = [...this.state.chartData.datasets[0].data];
@@ -61,7 +62,7 @@ class Home extends React.Component {
         labels: ["Protein", "Carbs", "Fat"],
         datasets: [
           {
-            data: data,
+            data,
             backgroundColor: ["#52dc63", "#4957d9", "#c74ddb"],
             hoverBackgroundColor: ["#52dc63", "#4957d9", "#c74ddb"]
           }
@@ -70,6 +71,7 @@ class Home extends React.Component {
     });
   };
 
+  // Handles the dropdown change
   selectChangeHandle = e => {
     const value = e;
     const operator = value;
@@ -97,6 +99,7 @@ class Home extends React.Component {
     }
   };
 
+  // checks for empty input fields
   formValidationCheck = () => {
     const formData = { ...this.state.formData };
     let errors = { ...this.state.errors };

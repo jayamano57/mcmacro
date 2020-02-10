@@ -4,20 +4,15 @@ import CaloriesIcon from "../../media/my-icons-collection/svg/004-lunch-box.svg"
 import BreadIcon from "../../media/my-icons-collection/svg/001-bread.svg";
 import FatIcon from "../../media/my-icons-collection/svg/002-cheese.svg";
 import ProteinIcon from "../../media/my-icons-collection/svg/003-fried-egg.svg";
-import { Select } from "antd";
-const { Option } = Select;
+import OperatorDropdown from "./OperatorDropdown";
 
 function MacroInputContainer(props) {
   return (
     <section className="macro-input-container">
-      <Select
-        value={props.operator}
-        style={{ width: 120 }}
-        onChange={props.selectChangeHandle}
-      >
-        <Option value="less">Less than</Option>
-        <Option value="greater">Greater than</Option>
-      </Select>
+      <OperatorDropdown
+        operator={props.operator}
+        selectChangeHandle={props.selectChangeHandle}
+      />
       <MacroInput
         class="calories"
         type="Calories"

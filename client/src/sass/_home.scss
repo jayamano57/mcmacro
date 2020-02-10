@@ -10,9 +10,9 @@ body {
 
 .home {
   h1 .title {
-    border: 1px solid #cfddf8;
+    border: 1px solid $background-color;
     padding: 0.5rem 1rem;
-    color: #d1ddf8;
+    color: $background-color;
   }
   .content-container {
     height: 80vh;
@@ -35,8 +35,14 @@ body {
       flex-direction: column;
       justify-content: space-around;
       align-items: center;
-      background-color: #fdfdfdad;
+      background-color: $background-color;
       position: relative;
+      .btn-default {
+        border: none;
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+      }
       @include responsive(56.25em) {
         width: 100%;
         height: 50rem;
@@ -69,7 +75,7 @@ body {
           display: inline-block;
           height: 75%;
           width: 0.3rem;
-          background-color: #de1313;
+          background-color: $error-red;
           position: absolute;
           right: -1.5rem;
           opacity: 0;
@@ -212,9 +218,9 @@ body {
       }
 
       .validation-error-msg {
-        border: 2px solid #de1313;
+        border: 2px solid $error-red;
         padding: 0.3rem 3.2rem;
-        background-color: #eff4ff;
+        background-color: $background-color;
         color: #de1313;
         position: absolute;
         top: -4rem;
@@ -226,22 +232,22 @@ body {
         width: 12rem;
         position: absolute;
         right: 10rem;
-        top: .8rem;
+        top: 0.8rem;
 
         &-selection {
-          background-color: #cfddf8;
-          border-color: #7196eb;
+          background-color: transparent;
+          border-color: $color-primary;
           transition: none; //override
           &:focus,
           &:active {
-            box-shadow: 0 0 0 2px #fbff00;
+            box-shadow: 0 0 0 2px $focus-outline;
             border-color: transparent;
           }
         }
       }
 
       .search {
-        background-color: #ff849f;
+        background-color: $search-btn;
         color: white;
         position: absolute;
         right: -3rem;
@@ -255,7 +261,7 @@ body {
         &:hover,
         &:focus {
           cursor: pointer;
-          transform: translateY(-.2rem);
+          transform: translateY(-0.2rem);
           box-shadow: 0 0.4rem 1rem $box-shadow-color;
           @include responsive(37.5em) {
             transform: translateX(50%);
@@ -264,7 +270,7 @@ body {
 
         &:focus {
           outline: none;
-          border: 2px solid #fbff00;
+          border: 2px solid $focus-outline;
         }
 
         &:active {

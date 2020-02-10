@@ -35,6 +35,8 @@ class Results extends React.Component {
         this.setState({
           loading: false
         });
+        alert("An error has occured");
+        console.log(error);
       });
   };
 
