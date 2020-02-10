@@ -1,6 +1,6 @@
 body {
   background-image: none;
-  background-color: #789ae7;
+  background-color: $color-primary;
   height: 100%;
 
   .loading {
@@ -17,7 +17,7 @@ body {
     padding: 0;
   }
   .results-content {
-    background-color: #b8cdff;
+    background-color: $color-primary-light;
     border-radius: 3px;
     padding: 5rem 7rem;
     box-shadow: 0 0.5rem 2rem $box-shadow-color;
@@ -124,7 +124,7 @@ body {
             }
           }
           &:not(:last-child) {
-            border-bottom: 1px solid $color-primary-light;
+            border-bottom: 1px solid #8aa3dc;
             padding-bottom: 1.4rem;
             @include responsive(64em) {
               padding-bottom: 1rem;
